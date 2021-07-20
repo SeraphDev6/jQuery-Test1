@@ -59,11 +59,30 @@ button{
     top: 200px;
     left: 400px;
 }
-#hidden-div,#other-hidden-div{
+.hidden{
     height: 100px;
     width: 60%;
     background:linear-gradient(to right,rgba(255, 0, 0, 0.5),rgba(255, 166, 0, 0.5),rgba(255, 255, 0, 0.5),rgba(0, 128, 0, 0.5),rgba(0, 0, 255, 0.5),rgba(76, 0, 130, 0.5),rgba(238, 130, 238, 0.5));
     border: 1px solid black;
     border-radius: 10px;
     overflow: none;
+}
+#fade-in-div{
+    height: auto;
+}
+img{
+    height: 200px;
+    width: auto;
+}
+#final-boss{
+    height: auto;
+    width: 30%;
+    background: black;
+    color: white;
+    opacity: 100%;
+    transition:all 1s ease-in-out;
+}
+.big{
+    font-size: 3rem;
+    font-weight: bolder;
 }

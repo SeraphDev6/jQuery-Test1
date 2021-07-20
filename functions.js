@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $("#hidden-div").slideUp(0);
-    $("#other-hidden-div").slideUp(0);
+    $(".hidden").slideUp(0);
     var colors=["red","orange","yellow","green","blue","indigo","violet"];
     var colorIndex=0;
     var ballPos=[200,400,0]
     var ballSayings=["Don't<br>touch<br>me","HEY!!!","I<br>SAID<br>DON'T<br>TOUCH<br>ME!!","Fine..<br>I don't<br>care","But<br>there are<br>FAR more<br>intersting things<br>on this<br>page","Like<br>THIS!!<br><br>Pretty cool,<br>right?","Isn't<br>that so<br>much more<br>FUN?!!"]
+    var batsSquished=0;
     function changeColor(){
         $(this).removeClass();
         colorIndex=(colorIndex+1)%7;
@@ -42,15 +42,50 @@ $(document).ready(function(){
     },changeColor);
     $("#other-hidden-div").click(function(){
         $(this).slideUp("fast");
-        $("h1,h2,h3,h4,h5,h6,p,div").append("<div class='blarg-box'>BLARG!</div>")
+        $("*").append("<div class='blarg-box'>BLARG!</div>")
         $("#hidden-div").text("OH NO! Now you've done it!")
+        setTimeout(function(){
+        $("#hidden-div").append("<div id='clickme'><p>Click me to get rid of all the Blargs....</p></div>")
+        $("#clickme").click(function(){
+            alert("BLARG!!!");
+            $(this).fadeOut("slow");
+            $(".blarg-box").fadeOut("slow");
+            $("#hidden-div").text("That was a close call...");
+            $("#fade-in-div").fadeIn("slow");
+            setTimeout(function(){
+                $("#hidden-div").append("<p>What is going on with that weird cave???</p>");
+            },200);
+        });
+        },2000);
+    });
+    $("#cave").click(function(){
+        $(this).before('<img class="bat" src="img/bat.png" alt="bat"/>');
+        $(this).after('<img class="bat" src="img/bat.png" alt="bat"/>');
+        $(".bat").hover(function(){
+            $(this).fadeOut("fast");
+            batsSquished++;
+            if(batsSquished%5==0){
+                $("#final-boss").slideToggle("slow")
+            }
+        });
+    });
+    var clicked=false;
+    $("#final-boss").click(function(){
+        ballPos[0]=200;
+        ballPos[1]=200;
+        $("#ball").html("<p>Fine,<br>I guess<br>I can help<br>Click him<br>when I'm<br>red!</p>")
+        $("#ball").css("top","200px")
+        $("#ball").css("left","200px")
+        if(clicked && $("#ball").attr("class")=="red"){
+            $("#ball").css("top","400px");
+            $("#ball").css("left","50%");
+            setTimeout(function(){
+                $("#final-boss").css("transform","rotate(270deg)");
+                $("#ball").html("<p><br>GOOD JOB!</p>");
+                $("#final-boss").html("<p class = 'big'>NOOOOOOOO!O!!!!!O!O!!!!!!!!</p><p>How dare you!!</p><p>I will never forget the name of my sworn enemy!</p><h1>"+$("#name-box").val()+"</h1>");
+            },500);
+        }
+        clicked=true
     });
 });
 
-//slideToggle
-//fadeIn
-//fadeOut
-//.before
-//.after
-//attr
-//val
